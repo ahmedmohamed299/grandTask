@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav"
+    app:startDestination="@id/userFragment">
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.grandtask.presentation.ui.SearchFragment"
+        android:label="SearchFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.grandtask.presentation.ui.UserFragment"
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <argument android:name="idd" />
+    </fragment>
+</navigation>

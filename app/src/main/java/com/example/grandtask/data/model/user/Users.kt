@@ -1,7 +1,8 @@
-package com.example.grandtask.data
+package com.example.grandtask.data.model.user
 
+import com.example.grandtask.data.model.user.Address
+import com.example.grandtask.data.model.user.Company
 
-import com.google.gson.annotations.SerializedName
 
 data class Users(
     val address: Address,
