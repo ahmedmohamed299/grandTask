@@ -1,4 +1,4 @@
-package com.example.grandtask.data
+package com.example.grandtask.data.model.user
 
 import com.google.gson.annotations.SerializedName
 
