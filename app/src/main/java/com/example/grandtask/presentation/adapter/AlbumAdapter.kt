@@ -7,14 +7,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.grandtask.R
 import com.example.grandtask.data.model.album.Album
+import com.example.grandtask.data.model.user.Users
 import com.example.grandtask.databinding.AlbumItemBinding
 import com.example.grandtask.presentation.OnAlbumListener
 
 class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumHolder>() {
     lateinit var binding: AlbumItemBinding
     var albumList = ArrayList<Album>()
+    lateinit var users: Users
     lateinit var onAlbumListener: OnAlbumListener
-    fun setData(albumsList: List<Album>,onAlbumListener: OnAlbumListener){
+    fun setData(albumsList: List<Album>,onAlbumListener: OnAlbumListener,user:Users){
+        this.users=user
         this.albumList.addAll(albumsList)
         this.onAlbumListener=onAlbumListener
         notifyDataSetChanged()
@@ -37,7 +40,7 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumHolder>() {
 
     override fun onBindViewHolder(holder: AlbumHolder, position: Int) {
         Log.d("onBindViewHolder", "onBindViewHolder:$albumList ")
-        holder.bind(albumList[position],onAlbumListener)
+        holder.bind(albumList[position],onAlbumListener,users)
     }
 
     override fun getItemCount(): Int {
@@ -47,10 +50,10 @@ class AlbumAdapter : RecyclerView.Adapter<AlbumAdapter.AlbumHolder>() {
 
     class AlbumHolder(private val binding: AlbumItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(album: Album, onAlbumListener: OnAlbumListener) {
+        fun bind(album: Album, onAlbumListener: OnAlbumListener, users: Users) {
             binding.name.text= album.title
             binding.cardView.setOnClickListener {
-                onAlbumListener.onAlbumClicked(album.id)
+                onAlbumListener.onAlbumClicked(users)
             }
         }
     }
