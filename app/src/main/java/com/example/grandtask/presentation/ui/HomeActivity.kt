@@ -23,15 +23,12 @@ class HomeActivity : AppCompatActivity() {
     @Inject
     lateinit var homeViewModelFactory: HomeViewModelFactory
     lateinit var homeViewModel: HomeViewModel
-    @Inject
-    lateinit var imagesViewModelFactory: ImagesViewModelFactory
-    lateinit var imagesViewModel: ImagesViewModel
+
     lateinit var binding: ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
-        imagesViewModel = ViewModelProvider(this, imagesViewModelFactory)[ImagesViewModel::class.java]
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment

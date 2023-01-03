@@ -8,6 +8,6 @@ import com.example.grandtask.domain.useCase.GetImagesDataUseCase
 class ImagesViewModelFactory(val app: Application, private val getImagesDataUseCase: GetImagesDataUseCase) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return ImagesViewModel(app, getImagesDataUseCase) as T
+        return ImagesViewModel( getImagesDataUseCase) as T
     }
 }

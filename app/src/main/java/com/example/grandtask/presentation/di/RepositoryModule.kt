@@ -5,6 +5,7 @@ import com.example.grandtask.data.repository.images.ImagesRepositoryImpl
 import com.example.grandtask.data.repository.images.dataSource.ImagesDataSource
 import com.example.grandtask.data.repository.user.AlbumRepositoryImpl
 import com.example.grandtask.data.repository.user.UserRepositoryImpl
+import com.example.grandtask.data.repository.user.dataSource.UserLocalDataSource
 import com.example.grandtask.data.repository.user.dataSource.UserRemoteDataSource
 import com.example.grandtask.domain.repository.AlbumRepository
 import com.example.grandtask.domain.repository.ImagesRepository
@@ -33,11 +34,13 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideAlbumRepository(
-        albumDataSource: AlbumDataSource
+        albumDataSource: AlbumDataSource,
+        userLocalDataSource: UserLocalDataSource
     ): AlbumRepository {
 
         return AlbumRepositoryImpl(
-            albumDataSource
+            albumDataSource,
+            userLocalDataSource
         )
     }
     @Provides

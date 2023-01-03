@@ -8,10 +8,10 @@
         android:id="@+id/searchFragment"
         android:name="com.example.grandtask.presentation.ui.SearchFragment"
         android:label="SearchFragment" >
-        <argument
-            android:name="id"
+    <argument
+            android:name="albumId"
             app:argType="integer" />
-    </fragment>
+             </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.grandtask.presentation.ui.UserFragment"
@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_userFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <argument android:name="idd" />
+        <argument
+            android:name="user"
+            app:argType="com.example.grandtask.data.model.user.Users" />
+
     </fragment>
 </navigation>

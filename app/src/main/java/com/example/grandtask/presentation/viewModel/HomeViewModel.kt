@@ -12,10 +12,13 @@ import com.example.grandtask.data.util.Resource
 import com.example.grandtask.domain.useCase.GetAlbumUseCase
 import com.example.grandtask.domain.useCase.GetUserDataUseCase
 import com.example.grandtask.presentation.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val app: Application,
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getAlbumUseCase: GetAlbumUseCase
@@ -45,13 +48,13 @@ class HomeViewModel(
         return getUserMutableLiveData
     }
 
-    fun getAlbum(userId:Int):LiveData<Resource<List<Album>>>{
+    fun getAlbum(user:Users):LiveData<Resource<List<Album>>>{
 
 
             viewModelScope.launch(Dispatchers.IO) {
                 if (isNetworkAvailable(app)){
                 getAlbumMutableLiveData.postValue(Resource.Loading())
-                val album = getAlbumUseCase.execute(userId)
+                val album = getAlbumUseCase.execute(user)
                 getAlbumMutableLiveData.postValue(album)
 
             }else{

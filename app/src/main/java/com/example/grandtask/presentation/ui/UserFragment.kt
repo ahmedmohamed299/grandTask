@@ -7,17 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.ActionOnlyNavDirections
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.example.grandtask.R
+import com.example.grandtask.data.model.user.Users
 import com.example.grandtask.data.util.Resource
 import com.example.grandtask.databinding.FragmentUserBinding
 import com.example.grandtask.presentation.OnAlbumListener
 import com.example.grandtask.presentation.adapter.AlbumAdapter
 import com.example.grandtask.presentation.viewModel.HomeViewModel
-import com.example.grandtask.presentation.viewModel.ImagesViewModel
 
 
 class UserFragment : Fragment(), OnAlbumListener {
@@ -28,12 +26,7 @@ class UserFragment : Fragment(), OnAlbumListener {
     private lateinit var navController: NavController
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +59,7 @@ class UserFragment : Fragment(), OnAlbumListener {
                     Log.d("userdata", "onCreate: ${it.data}")
                     binding.userName.text= it.data!!.username
                     binding.userAddress.text= it.data.address.street
-                    getAlbumsData(it.data!!.id)
+                    getAlbumsData(it.data)
 
                 }
                 is Resource.Error -> {
@@ -80,7 +73,7 @@ class UserFragment : Fragment(), OnAlbumListener {
     }
 
 
-    private fun getAlbumsData(userId: Int) {
+    private fun getAlbumsData(userId: Users) {
 
         userViewModel.getAlbum(userId).observe(viewLifecycleOwner) {
             when (it) {
@@ -90,7 +83,7 @@ class UserFragment : Fragment(), OnAlbumListener {
                 }
                 is Resource.Success -> {
                     Log.d("albumdata", "onCreate: ${it.data}")
-                    adapter.setData(it.data!!,this)
+                    adapter.setData(it.data!!,this,userId)
 
                 }
                 is Resource.Error -> {
@@ -101,8 +94,8 @@ class UserFragment : Fragment(), OnAlbumListener {
         }
     }
 
-    override fun onAlbumClicked(albumId: Int) {
-        val action =UserFragmentDirections.actionUserFragmentToSearchFragment(albumId)
+    override fun onAlbumClicked(albumId: Users) {
+        val action =UserFragmentDirections.actionUserFragmentToSearchFragment(albumId.id)
         navController.navigate(action)
     }
 
